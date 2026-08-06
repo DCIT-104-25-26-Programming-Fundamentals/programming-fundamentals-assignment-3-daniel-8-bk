@@ -73,5 +73,142 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
 
+/**
+ * Adds two numbers.
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+function add(a, b) {
+  return a + b;
+}
+
+/**
+ * Subtracts second number from first.
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+function subtract(a, b) {
+  return a - b;
+}
+
+/**
+ * Multiplies two numbers.
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+function multiply(a, b) {
+  return a * b;
+}
+
+/**
+ * Divides first number by second.
+ * @param {number} a
+ * @param {number} b
+ * @returns {number|null}
+ */
+function divide(a, b) {
+  if (b === 0) return null;
+  return a / b;
+}
+
+/**
+ * Computes modulus (remainder) of division.
+ * @param {number} a
+ * @param {number} b
+ * @returns {number|null}
+ */
+function modulus(a, b) {
+  if (b === 0) return null;
+  return a % b;
+}
+
+/**
+ * Raises base to power of exponent.
+ * @param {number} base
+ * @param {number} exponent
+ * @returns {number}
+ */
+function power(base, exponent) {
+  return base ** exponent;
+}
+
+/**
+ * Main execution loop.
+ */
+function main() {
+  let running = true;
+
+  while (running) {
+    console.log('\n============================');
+    console.log('       SIMPLE CALCULATOR    ');
+    console.log('============================');
+    console.log('1. Addition');
+    console.log('2. Subtraction');
+    console.log('3. Multiplication');
+    console.log('4. Division');
+    console.log('5. Modulus');
+    console.log('6. Exponentiation');
+    console.log('7. Quit');
+
+    const choice = readlineSync.questionInt('Select an operation (1-7): ');
+
+    if (choice === 7) {
+      console.log('Goodbye!');
+      running = false;
+      break;
+    }
+
+    if (choice < 1 || choice > 7) {
+      console.log('Invalid choice. Please select a number between 1 and 7.');
+      continue;
+    }
+
+    const num1 = readlineSync.questionFloat('Enter first number : ');
+    const num2 = readlineSync.questionFloat('Enter second number: ');
+
+    let result;
+    let symbol;
+
+    switch (choice) {
+      case 1:
+        result = add(num1, num2);
+        symbol = '+';
+        break;
+      case 2:
+        result = subtract(num1, num2);
+        symbol = '-';
+        break;
+      case 3:
+        result = multiply(num1, num2);
+        symbol = '*';
+        break;
+      case 4:
+        result = divide(num1, num2);
+        symbol = '/';
+        break;
+      case 5:
+        result = modulus(num1, num2);
+        symbol = '%';
+        break;
+      case 6:
+        result = power(num1, num2);
+        symbol = '**';
+        break;
+    }
+
+    if (result === null) {
+      console.log('Error: Cannot divide by zero.');
+    } else {
+      console.log(`Result: ${num1} ${symbol} ${num2} = ${result.toFixed(2)}`);
+    }
+  }
+}
+
+// Run the program
+main();
 
