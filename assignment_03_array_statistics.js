@@ -42,5 +42,85 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
 
+/**
+ * Calculates the sum of all elements in an array.
+ * @param {number[]} arr - Array of numbers.
+ * @returns {number} Sum of the array elements.
+ */
+function calculateSum(arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}
+
+/**
+ * Calculates the average of elements in an array.
+ * @param {number[]} arr - Array of numbers.
+ * @returns {number} Average value.
+ */
+function calculateAverage(arr) {
+  if (arr.length === 0) return 0;
+  return calculateSum(arr) / arr.length;
+}
+
+/**
+ * Finds the maximum element in an array.
+ * @param {number[]} arr - Array of numbers.
+ * @returns {number} Maximum value.
+ */
+function findMax(arr) {
+  let max = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+  return max;
+}
+
+/**
+ * Finds the minimum element in an array.
+ * @param {number[]} arr - Array of numbers.
+ * @returns {number} Minimum value.
+ */
+function findMin(arr) {
+  let min = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+  }
+  return min;
+}
+
+/**
+ * Main execution function.
+ */
+function main() {
+  const count = readlineSync.questionInt('How many numbers? ');
+
+  if (count <= 0) {
+    console.log('Error: Please enter a positive number.');
+    return;
+  }
+
+  const numbers = [];
+  for (let i = 1; i <= count; i++) {
+    const num = readlineSync.questionFloat(`Enter number ${i}: `);
+    numbers.push(num);
+  }
+
+  console.log('\nResults:');
+  console.log(`Sum:     ${calculateSum(numbers)}`);
+  console.log(`Average: ${calculateAverage(numbers)}`);
+  console.log(`Maximum: ${findMax(numbers)}`);
+  console.log(`Minimum: ${findMin(numbers)}`);
+}
+
+// Run the program
+main();
 
