@@ -80,5 +80,97 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
 
+// Global or module-level array to hold tasks
+const tasks = [];
+
+/**
+ * Prompts the user for a task description and adds it to the list.
+ */
+function addTask() {
+  const task = readlineSync.question('Enter task: ');
+  if (task.trim() === '') {
+    console.log('Error: Task description cannot be empty.');
+    return;
+  }
+  tasks.push(task);
+  console.log(`Task added: "${task}"`);
+}
+
+/**
+ * Displays all tasks currently in the list with 1-based numbering.
+ */
+function viewTasks() {
+  if (tasks.length === 0) {
+    console.log('Your to-do list is currently empty.');
+    return;
+  }
+
+  console.log('\nYour Tasks:');
+  for (let i = 0; i < tasks.length; i++) {
+    console.log(`${i + 1}. ${tasks[i]}`);
+  }
+}
+
+/**
+ * Prompts for a task number and removes the corresponding item from the list.
+ */
+function deleteTask() {
+  if (tasks.length === 0) {
+    console.log('No tasks to delete.');
+    return;
+  }
+
+  viewTasks();
+  const taskNumber = readlineSync.questionInt('Enter task number to delete: ');
+  const index = taskNumber - 1;
+
+  if (index < 0 || index >= tasks.length) {
+    console.log('Error: Invalid task number.');
+  } else {
+    const removed = tasks.splice(index, 1);
+    console.log(`Task "${removed[0]}" has been removed.`);
+  }
+}
+
+/**
+ * Main execution function running the interactive menu loop.
+ */
+function main() {
+  let running = true;
+
+  while (running) {
+    console.log('\n============================');
+    console.log('       TO-DO LIST MENU      ');
+    console.log('============================');
+    console.log('1. Add task');
+    console.log('2. View tasks');
+    console.log('3. Delete task');
+    console.log('4. Quit');
+
+    const choice = readlineSync.questionInt('Enter your choice (1-4): ');
+
+    switch (choice) {
+      case 1:
+        addTask();
+        break;
+      case 2:
+        viewTasks();
+        break;
+      case 3:
+        deleteTask();
+        break;
+      case 4:
+        console.log('Goodbye!');
+        running = false;
+        break;
+      default:
+        console.log('Invalid choice. Please enter a number between 1 and 4.');
+    }
+  }
+}
+
+// Run the program
+main();
 
